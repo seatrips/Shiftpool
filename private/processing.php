@@ -12,6 +12,8 @@
 
 while(1) {
 	$df++;
+	$forged_block_revenue = 0;
+	$total_voters_power = 0;
 	echo "\n";echo $df.":Checking last forged block...\n";
 	//Retrive Public Key
 	$ch1 = curl_init('http://'.$lisk_host.':'.$lisk_port.'/api/accounts?address='.$delegate);                                                                      

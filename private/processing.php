@@ -1,5 +1,5 @@
 <?php
-	error_reporting(error_reporting() & ~E_NOTICE & ~E_WARNING);
+	error_reporting(error_reporting() & ~E_NOTICE);
 	$config = include('../config.php');
 
 	$mysqli=mysqli_connect($config['host'], $config['username'], $config['password'], $config['bdd']) or die(mysqli_error($mysqli));
@@ -78,12 +78,15 @@ while(1) {
 			$address = $value['address'];
 			$balance = $value['balance'];
 			$total = $total_voters_power;
-			$precentage = ($balance / $total)*100;
+			$precentage = $balance / $total;
 			$user_revenue = $precentage * $forged_block_revenue;
 			echo "\n".$key.' => '.$address.' => '.$balance.' / '.$total.' = '.$precentage.'% -> '.$user_revenue;
 			$task = "UPDATE miners SET balance=balance+'$user_revenue' WHERE address='$address';";	
-			$query = mysqli_query($mysqli,$task) or die("Database Error");	
+			$query = mysqli_query($mysqli,$task) or die("Database Error");
+			$splitted = $splitted + $user_revenue;
 		}
+		echo "\nSplitted:".$splitted;
+		echo "\n___Block:".$forged_block_revenue;
 		echo "\nDone...Resting for 30s";
 		sleep(30);
 		$result1 = 0;

@@ -32,11 +32,11 @@ Now please navigate to config.php
 Start LISK node as usual, and set up it to forge.
 
 Now start background scripts:<br>
-<br>Block Processing - this script check if delegate has forged new block, if yes it will be splited as definied in config
+<br>Block Processing - this script check if delegate has forged new block, if yes it will be splited as defined in config
 <pre>screen<br>Push Enter key<br>sudo php /var/private/processing.php</pre>
 <br>Updating charts - this script updates data to keep charts up to date.
 <pre>screen<br>Push Enter key<br>sudo php /var/private/stats.php</pre>
-<br>Withdraw script - this script withdraws earned and split revenue as definied in config.
+<br>Withdraw script - this script withdraw revenue as defined in config.
 <pre>screen<br>Push Enter key<br>sudo php /var/private/withdraw.php</pre>
 <br><br>
 Optional

@@ -27,7 +27,7 @@ while(1) {
 	$result1 = curl_exec($ch1);
 	$forged_block_json = json_decode($result1, true); 
 	$forged_block = $forged_block_json['blocks'][0]['height'];
-	$forged_block_revenue = $forged_block_json['blocks'][0]['totalForged'];
+	$forged_block_revenue = $forged_block_json['blocks'][0]['reward'];
 
 	$task = "INSERT INTO blocks (blockid) SELECT * FROM (SELECT '$forged_block') AS tmp WHERE NOT EXISTS (SELECT * FROM blocks WHERE blockid = '$forged_block' LIMIT 1)";
 	$query = mysqli_query($mysqli,$task) or die(mysqli_error($mysqli));

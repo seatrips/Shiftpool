@@ -197,7 +197,7 @@ $(function () {
                 type: "area"
             },
             title : {
-                text : "Hashrate"
+                text : "Vote Power"
             },
 
             yAxis: {
@@ -373,7 +373,7 @@ function miners() {
             },
 
             series : [{
-                name : "miners count",
+                name : "voters count",
                 data : data,
                 threshold: null,
                 fillColor : {

@@ -35,43 +35,53 @@ while(1) {
     $balance = $value['balance'];
     $total_voters_power = $total_voters_power + $balance;
   }
+  if ($voters_count != 0 && $total_voters_power) {
+    $cur_time = time();
+    $total_voters_power_d = $total_voters_power/100000000000000;
+    $add2Stats = "INSERT INTO pool_votepower (votepower, val_timestamp) VALUES ('$total_voters_power_d', '$cur_time')";
+    $querydone = mysqli_query($mysqli,$add2Stats) or die("Database Error 0");
 
-  $cur_time = time();
-  $total_voters_power_d = $total_voters_power/100000000000000;
-  $add2Stats = "INSERT INTO pool_votepower (votepower, val_timestamp) VALUES ('$total_voters_power_d', '$cur_time')";
-  $querydone = mysqli_query($mysqli,$add2Stats) or die("Database Error 0");
+    $balanceinlsk_p = floatval($pool_balance/100000000);
+    $add2Stats = "INSERT INTO pool_balance (value, var_timestamp) VALUES ('$balanceinlsk_p', '$cur_time')";
+    $querydone = mysqli_query($mysqli,$add2Stats) or die("Database Error 0");
 
-  $balanceinlsk_p = floatval($pool_balance/100000000);
-  $add2Stats = "INSERT INTO pool_balance (value, var_timestamp) VALUES ('$balanceinlsk_p', '$cur_time')";
-  $querydone = mysqli_query($mysqli,$add2Stats) or die("Database Error 0");
+    $add2Stats = "INSERT INTO pool_voters (value, var_timestamp) VALUES ('$voters_count', '$cur_time')";
+    $querydone = mysqli_query($mysqli,$add2Stats) or die("Database Error 0");
 
-  $add2Stats = "INSERT INTO pool_voters (value, var_timestamp) VALUES ('$voters_count', '$cur_time')";
-  $querydone = mysqli_query($mysqli,$add2Stats) or die("Database Error 0");
-
-  $db_users_count = 0;
-  $users_data = '';
-  $existQuery = "SELECT address,balance FROM miners";
-  $existResult = mysqli_query($mysqli,$existQuery)or die("Database Error");
-  while ($row=mysqli_fetch_row($existResult)){
-    $val1 = $row[0];
-    $val2 = $row[1];
-    $balanceinlsk = floatval($val2/100000000);
-    $users_data = $users_data.' '."('$val1', '$balanceinlsk', '$cur_time'),";
-    $db_users_count++;
-  }
-  $users_data = substr($users_data, 0, -1);
-  $add2Stats = "INSERT INTO miner_balance (miner, value, var_timestamp) VALUES".$users_data;
-  $querydone = mysqli_query($mysqli,$add2Stats) or die('erros miner_balance');
+    $db_users_count = 0;
+    $users_data = '';
+    $existQuery = "SELECT address,balance FROM miners";
+    $existResult = mysqli_query($mysqli,$existQuery)or die("Database Error");
+    while ($row=mysqli_fetch_row($existResult)){
+      $val1 = $row[0];
+      $val2 = $row[1];
+      $balanceinlsk = floatval($val2/100000000);
+      $users_data = $users_data.' '."('$val1', '$balanceinlsk', '$cur_time'),";
+      $db_users_count++;
+    }
+    $users_data = substr($users_data, 0, -1);
+    $add2Stats = "INSERT INTO miner_balance (miner, value, var_timestamp) VALUES".$users_data;
+    $querydone = mysqli_query($mysqli,$add2Stats) or die('erros miner_balance');
   
-  $end_time = time();
-  $took = $end_time - $start_time;
-  $time_sleep = 60-$took;
-  if ($time_sleep < 1) {
-    $time_sleep = 1;
+    $end_time = time();
+    $took = $end_time - $start_time;
+    $time_sleep = 60-$took;
+    if ($time_sleep < 1) {
+      $time_sleep = 1;
+    }
+    echo "\nAdding...".$df.' took:'.$took.' sleep:'.$time_sleep.' Active voters -> '.$voters_count.' votepower -> '.$total_voters_power.'  balance -> '.$balanceinlsk_p;
+    sleep($time_sleep);
+  } else {
+    //Can't get data, dont mess chart
+    $end_time = time();
+    $took = $end_time - $start_time;
+    $time_sleep = 60-$took;
+    if ($time_sleep < 1) {
+      $time_sleep = 1;
+    }
+    sleep($time_sleep);
+    echo "Can't get data...";
   }
-
-  echo "\nAdding...".$df.' took:'.$took.' sleep:'.$time_sleep.' Active voters -> '.$voters_count.' votepower -> '.$total_voters_power.'  balance -> '.$balanceinlsk_p;
-  sleep($time_sleep);
 }
 
 ?>

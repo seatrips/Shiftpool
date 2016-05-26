@@ -58,5 +58,4 @@ Front-end(site theme) is used from http://themes.3rdwavemedia.com/website-templa
 Personally i own license, so better buy license or use your own front-end.
 
 #Donate
-Bitcoin -> 1MsCcLLzaZtgEiMsigFoRJjz149mPSoFKC<br>
-![alt tag](http://s16.postimg.org/xbne92mdx/image.png)<br>
+Lisk -> 982604020548625307L

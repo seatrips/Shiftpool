@@ -57,11 +57,16 @@ while(1) {
       $val2 = $row[1];
       $balanceinlsk = floatval($val2/100000000);
       $users_data = $users_data.' '."('$val1', '$balanceinlsk', '$cur_time'),";
+      if (!$val1) {
+        $users_data = 'empty';
+      }
       $db_users_count++;
     }
-    $users_data = substr($users_data, 0, -1);
-    $add2Stats = "INSERT INTO miner_balance (miner, value, var_timestamp) VALUES".$users_data;
-    $querydone = mysqli_query($mysqli,$add2Stats) or die('erros miner_balance');
+    if ($users_data == 'empty') {
+      $users_data = substr($users_data, 0, -1);
+      $add2Stats = "INSERT INTO miner_balance (miner, value, var_timestamp) VALUES".$users_data;
+      $querydone = mysqli_query($mysqli,$add2Stats) or die('erros miner_balance');
+    }
   
     $end_time = time();
     $took = $end_time - $start_time;

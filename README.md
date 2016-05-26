@@ -33,11 +33,11 @@ Start LISK node as usual, and set up it to forge.
 
 Now start background scripts:<br>
 <br>Block Processing - this script check if delegate has forged new block, if yes it will be splited as defined in config
-<pre>screen<br>Push Enter key<br>sudo php /var/private/processing.php</pre>
+<pre>screen -dmS processing php /var/private/processing.php</pre>
 <br>Updating charts - this script updates data to keep charts up to date.
-<pre>screen<br>Push Enter key<br>sudo php /var/private/stats.php</pre>
+<pre>screen -dmS stats php /var/private/stats.php</pre>
 <br>Withdraw script - this script withdraw revenue as defined in config.
-<pre>screen<br>Push Enter key<br>sudo php /var/private/withdraw.php</pre>
+<pre>screen -dmS withdraw php /var/private/withdraw.php</pre>
 <br><br>
 Optional
 Balance checker - Simple script to compare total LISK value stored in database in refernce to actual LISK stored on delegate account.
@@ -46,7 +46,7 @@ Balance checker - Simple script to compare total LISK value stored in database i
 <br>
 You can easily access all background scripts by
 <pre>
-screen -ls<br>then pick one by<br>screen -x INTEGER</pre>
+screen -x processing/stats/withdraw</pre>
 
 #Contributing
 If you want to contribute, fork and pull request or open issue.

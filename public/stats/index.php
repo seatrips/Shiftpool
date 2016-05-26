@@ -25,6 +25,18 @@ $username = $publicKey_json['account']['username'];
 $balanceinlsk_p = floatval($pool_balance/100000000);
 
 
+//get forging delegate info
+$ch1 = curl_init('http://'.$lisk_host.':'.$lisk_port.'/api/delegates/get/?publicKey='.$publicKey);
+curl_setopt($ch1, CURLOPT_CUSTOMREQUEST, "GET");                                                                                      
+curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);     
+$result1 = curl_exec($ch1);
+$d_data = json_decode($result1, true); 
+$d_data = $d_data['delegate'];
+$rank = $d_data['rate'];
+$approval = $d_data['approval'];
+$productivity = $d_data['productivity'];
+$missedblocks = $d_data['missedblocks'];
+
 //Retrive voters
 $ch1 = curl_init('http://'.$lisk_host.':'.$lisk_port.'/api/delegates/voters?publicKey='.$publicKey);
 curl_setopt($ch1, CURLOPT_CUSTOMREQUEST, "GET");                                                                                      
@@ -183,18 +195,22 @@ echo '<!DOCTYPE html>
                     <div class="contact-form-inner col-md-8 col-sm-12 col-xs-12 col-md-offset-2 col-sm-offset-0 xs-offset-0">';                                                                                   
 
     echo '<center>';
+    echo '<a href="#"><div class="button-fill grey" style="width:94%"><div class="button-text">#'.$rank.'</b></div><div class="button-inside"><div class="inside-text"><font size="2">Rank</font></div></div></div></a>';
+    
     $total_voters_power_d = $total_voters_power/100000000000000;
     echo '<a href="/charts"><div class="button-fill grey" style="width:94%"><div class="button-text">'.$total_voters_power_d.'</b></div><div class="button-inside"><div class="inside-text">Vote Power</div></div></div></a>';
 
     echo '<a href="https://explorer.lisk.io/address/'.$delegate.'" target="_blanklank"><div class="button-fill grey" style="width:94%"><div class="button-text">'.$balanceinlsk_p.'</b></div><div class="button-inside"><div class="inside-text">Pool Balance in LISK</div></div></div></a>';
     
     echo '<a href="https://explorer.lisk.io/address/'.$delegate.'" target="_blanklank"><div class="button-fill grey" style="width:94%"><div class="button-text">'.$delegate.'</b></div><div class="button-inside"><div class="inside-text">Delegate address</div></div></div></a>';
-
-    echo '<a href="#"><div class="button-fill grey" style="width:94%"><div class="button-text">'.$username.'</b></div><div class="button-inside"><div class="inside-text"><font size="2">Delegate Name</font></div></div></div></a>';
     
     echo '<a href="#"><div class="button-fill grey" style="width:94%"><div class="button-text">'.$minedblocks.'</b></div><div class="button-inside"><div class="inside-text"><font size="2">Forged Blocks</font></div></div></div></a>';
     
     echo '<a href="#"><div class="button-fill grey" style="width:94%"><div class="button-text">'.$voters_count.'</b></div><div class="button-inside"><div class="inside-text"><font size="1.5">Active votes</font></div></div></div></a>';
+
+    echo '<a href="#"><div class="button-fill grey" style="width:94%"><div class="button-text">'.$missedblocks.'</b></div><div class="button-inside"><div class="inside-text"><font size="2">Missed Blocks</font></div></div></div></a>';
+
+    echo '<a href="#"><div class="button-fill grey" style="width:94%"><div class="button-text">'.$productivity.'</b></div><div class="button-inside"><div class="inside-text"><font size="2">Productivity</font></div></div></div></a>';
 
     echo '</center>';
 

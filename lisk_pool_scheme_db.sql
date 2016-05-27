@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Apr 04, 2016 at 04:45 PM
--- Server version: 5.5.47-MariaDB-1ubuntu0.14.04.1
--- PHP Version: 5.5.9-1ubuntu4.14
+-- Generation Time: May 27, 2016 at 06:54 AM
+-- Server version: 5.5.49-MariaDB-1ubuntu0.14.04.1
+-- PHP Version: 5.5.9-1ubuntu4.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -85,6 +85,19 @@ CREATE TABLE IF NOT EXISTS `payout_history` (
 --
 
 CREATE TABLE IF NOT EXISTS `pool_balance` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `value` varchar(64) NOT NULL,
+  `var_timestamp` varchar(32) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pool_rank`
+--
+
+CREATE TABLE IF NOT EXISTS `pool_rank` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `value` varchar(64) NOT NULL,
   `var_timestamp` varchar(32) NOT NULL,

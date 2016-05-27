@@ -217,6 +217,26 @@ echo ']';
 
 
 
+} else if ($data == 'pool_rank' && !$miner) {
+$config = include('../../config.php');
+$mysqli=mysqli_connect($config['host'], $config['username'], $config['password'], $config['bdd']) or die("Database Error");
+$existQuery = "SELECT value,var_timestamp FROM pool_rank ORDER BY id ASC";
+$existResult = mysqli_query($mysqli,$existQuery)or die("Database Error");
+$count = mysqli_num_rows($existResult);
+$x++;
+$miner_payouts = array();
+echo '[';
+while ($row=mysqli_fetch_row($existResult)){
+	$stamp = $row[1]*1000;
+	$real = $row[0];
+	$x++;
+	    echo '['.$stamp.','.$real.']';
+    if ($x-1 != $count) {
+    	echo ',';
+    }
+}
+echo ']';
+
 }
 
 ?>

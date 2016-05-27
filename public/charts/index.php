@@ -77,6 +77,7 @@ echo '<!DOCTYPE html>
                     <div class="contact-form-inner col-md-8 col-sm-12 col-xs-12 col-md-offset-2 col-sm-offset-0 xs-offset-0">
                         <div class="row"> ';
                         echo '<div id="container"><center>Loading votepower chart...</center></div>';
+                        echo '<br><br><div id="container_rank"><center>Loading rank chart...</center></div><br><br>';
                         echo '<br><br><div id="container_balance"><center>Loading balance chart...</center></div><br><br>';
                         echo '<br><br><div id="container_miners"><center>Loading voters chart...</center></div><br><br>';
                         echo '</div><!--//row-->
@@ -227,10 +228,92 @@ $(function () {
                 }
             }]
         });
-        setTimeout(balance, 1);
+        setTimeout(rank, 1);
     });
 });
 
+function rank() {
+    $.getJSON("/api/index.php?data=pool_rank&range=max", function (data) {
+        $("#container_rank").highcharts("StockChart", {
+            rangeSelector: {
+            buttons: [{
+                type: 'hour',
+                count: 1,
+                text: '1h'
+            },{
+                type: 'hour',
+                count: 12,
+                text: '12h'
+            },{
+                type: 'day',
+                count: 1,
+                text: '1d'
+            },{
+                type: 'day',
+                count: 3,
+                text: '3d'
+            }, {
+                type: 'week',
+                count: 1,
+                text: '1w'
+            }, {
+                type: 'month',
+                count: 1,
+                text: '1m'
+            }, {
+                type: 'month',
+                count: 6,
+                text: '6m'
+            }, {
+                type: 'year',
+                count: 1,
+                text: '1y'
+            }, {
+                type: 'all',
+                text: 'All'
+            }],
+            selected: 3
+        },
+            chart: {
+                backgroundColor: "#F5F5F5",
+                polar: true,
+                type: "area"
+            },
+            title : {
+                text : "Rank"
+            },
+
+            yAxis: {
+                reversed: false,
+                showFirstLabel: false,
+                showLastLabel: true
+            },
+
+            series : [{
+                name : "Rank",
+                data : data,
+                threshold: null,
+                fillColor : {
+                    linearGradient : {
+                        x1: 0,
+                        y1: 1,
+                        x2: 0,
+                        y2: 0
+                    },
+                    stops : [
+                        [0, Highcharts.getOptions().colors[0]],
+                        [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                    ]
+                },
+                tooltip: {
+                    valueDecimals: 2
+                }
+            }]
+        });
+        setTimeout(balance, 1);
+    });
+
+};
 
 function balance() {
     $.getJSON("/api/index.php?data=pool_balance&range=max", function (data) {
@@ -373,7 +456,7 @@ function miners() {
             },
 
             series : [{
-                name : "voters count",
+                name : "miners count",
                 data : data,
                 threshold: null,
                 fillColor : {
@@ -408,5 +491,4 @@ function zip(a, b) {
 
 
 </body>
-</html> 
-
+</html>

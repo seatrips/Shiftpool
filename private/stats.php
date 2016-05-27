@@ -22,6 +22,16 @@ while(1) {
   $publicKey_json = json_decode($result1, true); 
   $publicKey = $publicKey_json['account']['publicKey'];
   $pool_balance = $publicKey_json['account']['balance'];
+
+  //get forging delegate info
+  $ch1 = curl_init('http://'.$lisk_host.':'.$lisk_port.'/api/delegates/get/?publicKey='.$publicKey);
+  curl_setopt($ch1, CURLOPT_CUSTOMREQUEST, "GET");                                                                                      
+  curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);     
+  $result1 = curl_exec($ch1);
+  $d_data = json_decode($result1, true); 
+  $d_data = $d_data['delegate'];
+  $rank = $d_data['rate'];
+
   //Retrive voters
   $ch1 = curl_init('http://'.$lisk_host.':'.$lisk_port.'/api/delegates/voters?publicKey='.$publicKey);
   curl_setopt($ch1, CURLOPT_CUSTOMREQUEST, "GET");                                                                                      
@@ -46,6 +56,9 @@ while(1) {
     $querydone = mysqli_query($mysqli,$add2Stats) or die("Database Error 0");
 
     $add2Stats = "INSERT INTO pool_voters (value, var_timestamp) VALUES ('$voters_count', '$cur_time')";
+    $querydone = mysqli_query($mysqli,$add2Stats) or die("Database Error 0");
+
+    $add2Stats = "INSERT INTO pool_rank (value, var_timestamp) VALUES ('$rank', '$cur_time')";
     $querydone = mysqli_query($mysqli,$add2Stats) or die("Database Error 0");
 
     $db_users_count = 0;
@@ -74,7 +87,7 @@ while(1) {
     if ($time_sleep < 1) {
       $time_sleep = 1;
     }
-    echo "\nAdding...".$df.' took:'.$took.' sleep:'.$time_sleep.' Active voters -> '.$voters_count.' votepower -> '.$total_voters_power.'  balance -> '.$balanceinlsk_p;
+    echo "\nAdding...".$df.' took:'.$took.' sleep:'.$time_sleep.' Active voters -> '.$voters_count.' votepower -> '.$total_voters_power.'  balance -> '.$balanceinlsk_p.'  rank -> '.$rank;
     sleep($time_sleep);
   } else {
     //Can't get data, dont mess chart

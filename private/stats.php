@@ -2,7 +2,6 @@
   error_reporting(error_reporting() & ~E_NOTICE & ~E_WARNING);
   $config = include('../config.php');
 
-  $mysqli=mysqli_connect($config['host'], $config['username'], $config['password'], $config['bdd']) or die(mysqli_error($mysqli));
   $df = 0;
   $delegate = $config['delegate_address'];
   $lisk_host = $config['lisk_host'];
@@ -47,6 +46,7 @@ while(1) {
   }
   if ($voters_count != 0 && $total_voters_power) {
     $cur_time = time();
+    $mysqli=mysqli_connect($config['host'], $config['username'], $config['password'], $config['bdd']) or die(mysqli_error($mysqli));
     $total_voters_power_d = $total_voters_power/100000000000000;
     $add2Stats = "INSERT INTO pool_votepower (votepower, val_timestamp) VALUES ('$total_voters_power_d', '$cur_time')";
     $querydone = mysqli_query($mysqli,$add2Stats) or die("Database Error 0");
@@ -76,6 +76,7 @@ while(1) {
       $db_users_count++;
     }
     if ($users_data == 'empty') {
+      $mysqli=mysqli_connect($config['host'], $config['username'], $config['password'], $config['bdd']) or die(mysqli_error($mysqli));
       $users_data = substr($users_data, 0, -1);
       $add2Stats = "INSERT INTO miner_balance (miner, value, var_timestamp) VALUES".$users_data;
       $querydone = mysqli_query($mysqli,$add2Stats) or die('erros miner_balance');

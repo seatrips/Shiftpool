@@ -2,7 +2,6 @@
 	error_reporting(error_reporting() & ~E_NOTICE);
 	$config = include('../config.php');
 
-	$mysqli=mysqli_connect($config['host'], $config['username'], $config['password'], $config['bdd']) or die(mysqli_error($mysqli));
 	$df = 0;
 	$delegate = $config['delegate_address'];
 	$lisk_host = $config['lisk_host'];
@@ -35,6 +34,7 @@ while(1) {
 	$forged_block = $forged_block_json['blocks'][0]['height'];
 	$forged_block_revenue = $forged_block_json['blocks'][0]['reward'];
 
+	$mysqli=mysqli_connect($config['host'], $config['username'], $config['password'], $config['bdd']) or die(mysqli_error($mysqli));
 	$task = "INSERT INTO blocks (blockid) SELECT * FROM (SELECT '$forged_block') AS tmp WHERE NOT EXISTS (SELECT * FROM blocks WHERE blockid = '$forged_block' LIMIT 1)";
 	$query = mysqli_query($mysqli,$task) or die(mysqli_error($mysqli));
 	$affected = $mysqli -> affected_rows;

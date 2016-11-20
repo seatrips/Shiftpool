@@ -48,8 +48,17 @@ $voters_count = count($voters_array);
 $total_voters_power = 0;
 foreach ($voters_array as $key => $value) {
   $balance = $value['balance'];
+  $username = $value['username'];
+  $address = $value['address'];
   $total_voters_power = $total_voters_power + $balance;
+  $balanceinlsk = floatval($balance/100000000);
+  if (!$username) {
+    $new_array[] = '&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://explorer.lisk.io/address/'.$address.'">'.$address.'</a> balance:'.$balanceinlsk.' LISK';
+  } else {
+    $new_array[] = '&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://explorer.lisk.io/address/'.$address.'">'.$address.'</a> with name: <b>'.$username.'</b> balance:'.$balanceinlsk.' LISK';
+  }
 }
+
 
 $existQuery = "SELECT balance,address FROM miners ORDER BY balance DESC LIMIT 2000;";
 $existResult = mysqli_query($mysqli,$existQuery)or die("Database Error");
@@ -214,8 +223,16 @@ echo '<!DOCTYPE html>
 
     echo '</center>';
 
-  echo '<b><br>&nbsp;&nbsp;&nbsp;&nbsp;Active Voters:</b>';
+  echo '<b><br>&nbsp;&nbsp;&nbsp;&nbsp;Voters forging results:</b>';
+  if ($activeminers == '') {
+    echo ' Pool did not processed any blocks yet so nothing to display here!<br>';
+  }
   echo $activeminers;
+  echo '<b><br><br>&nbsp;&nbsp;&nbsp;&nbsp;Active Voters:</b>';
+  $new_array = array_reverse($new_array);
+  foreach ($new_array as $key => $value) {
+    echo '<br>'.$value;
+  }
   echo '<br><br><b>Forged Blocks (last 50):</b><br>';
   $existQuery = "SELECT blockid FROM blocks ORDER BY id DESC LIMIT 50;";
   $existResultMinersss = mysqli_query($mysqli,$existQuery)or die("Database Error");

@@ -76,10 +76,10 @@ echo '<!DOCTYPE html>
                 <div class="row text-left">
                     <div class="contact-form-inner col-md-8 col-sm-12 col-xs-12 col-md-offset-2 col-sm-offset-0 xs-offset-0">
                         <div class="row"> ';
-                        echo '<div id="container"><center>Loading votepower chart...</center></div>';
-                        echo '<br><br><div id="container_rank"><center>Loading rank chart...</center></div><br><br>';
-                        echo '<br><br><div id="container_balance"><center>Loading balance chart...</center></div><br><br>';
-                        echo '<br><br><div id="container_miners"><center>Loading voters chart...</center></div><br><br>';
+                        echo '<div id="container"><center>Loading approval chart</center></div><br>';
+                        echo '<br><br><div id="container_rank"><center>Loading rank chart</center></div><br>';
+                        echo '<br><br><div id="container_balance"><center>Loading balance chart</center></div><br>';
+                        echo '<br><br><div id="container_miners"><center>Loading vote count chart</center></div><br>';
                         echo '</div><!--//row-->
                     </div>
                 </div><!--//row-->
@@ -198,7 +198,7 @@ $(function () {
                 type: "area"
             },
             title : {
-                text : "Vote Power"
+                text : "Community Approval (%)"
             },
 
             yAxis: {
@@ -208,7 +208,7 @@ $(function () {
             },
 
             series : [{
-                name : "votepower",
+                name : "Community Approval (%)",
                 data : data,
                 threshold: null,
                 fillColor : {
@@ -363,7 +363,7 @@ function balance() {
                 type: "area"
             },
             title : {
-                text : "Balance"
+                text : "Balance (LSK)"
             },
 
             yAxis: {
@@ -373,7 +373,7 @@ function balance() {
             },
 
             series : [{
-                name : "Lisk",
+                name : "Balance (LSK)",
                 data : data,
                 threshold: null,
                 fillColor : {
@@ -446,7 +446,7 @@ function miners() {
                 type: "area"
             },
             title : {
-                text : "Votes"
+                text : "Votes Count"
             },
 
             yAxis: {
@@ -456,7 +456,7 @@ function miners() {
             },
 
             series : [{
-                name : "miners count",
+                name : "Votes Count",
                 data : data,
                 threshold: null,
                 fillColor : {
@@ -491,4 +491,4 @@ function zip(a, b) {
 
 
 </body>
-</html>
+</html> 

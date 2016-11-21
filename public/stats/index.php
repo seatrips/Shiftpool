@@ -48,10 +48,11 @@ $voters_count = count($voters_array);
 $total_voters_power = 0;
 foreach ($voters_array as $key => $value) {
   $balance = $value['balance'];
+  $balanceinlsk = floatval($balance/100000000);
+  $balance_summary += $balanceinlsk;
   $username = $value['username'];
   $address = $value['address'];
   $total_voters_power = $total_voters_power + $balance;
-  $balanceinlsk = floatval($balance/100000000);
   if (!$username) {
     $new_array[] = '&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://explorer.lisk.io/address/'.$address.'">'.$address.'</a> balance:'.$balanceinlsk.' LISK';
   } else {
@@ -207,7 +208,7 @@ echo '<!DOCTYPE html>
     echo '<a href="#"><div class="button-fill grey" style="width:94%"><div class="button-text">#'.$rank.'</b></div><div class="button-inside"><div class="inside-text"><font size="2">Rank</font></div></div></div></a>';
     
     $total_voters_power_d = $total_voters_power/100000000000000;
-    echo '<a href="/charts"><div class="button-fill grey" style="width:94%"><div class="button-text">'.$total_voters_power_d.'</b></div><div class="button-inside"><div class="inside-text">Vote Power</div></div></div></a>';
+    echo '<a href="/charts"><div class="button-fill grey" style="width:94%"><div class="button-text">'.number_format((float)$total_voters_power_d, 3, '.', '').'%</b></div><div class="button-inside"><div class="inside-text">Approval</div></div></div></a>';
 
     echo '<a href="https://explorer.lisk.io/address/'.$delegate.'" target="_blanklank"><div class="button-fill grey" style="width:94%"><div class="button-text">'.$balanceinlsk_p.'</b></div><div class="button-inside"><div class="inside-text">Pool Balance in LISK</div></div></div></a>';
     
@@ -220,6 +221,8 @@ echo '<!DOCTYPE html>
     echo '<a href="#"><div class="button-fill grey" style="width:94%"><div class="button-text">'.$missedblocks.'</b></div><div class="button-inside"><div class="inside-text"><font size="2">Missed Blocks</font></div></div></div></a>';
 
     echo '<a href="#"><div class="button-fill grey" style="width:94%"><div class="button-text">'.$productivity.'</b></div><div class="button-inside"><div class="inside-text"><font size="2">Productivity</font></div></div></div></a>';
+
+    echo '<a href="#"><div class="button-fill grey" style="width:94%"><div class="button-text">'.number_format((float)$balance_summary, 2, '.', ',').' LSK</b></div><div class="button-inside"><div class="inside-text"><font size="2">Total balance supporting us</font></div></div></div></a>';
 
     echo '</center>';
 

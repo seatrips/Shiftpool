@@ -11,9 +11,13 @@ This is first LISK delegate forging pool. Written in PHP.
 #Setup on Linux
 <pre>
 apt-get install nginx mariadb-server memcached
-
+</pre>
+If you are using Php5
+<pre>
 apt-get install php5-memcached
-or
+</pre>
+If you are using Php5
+<pre>
 apt-get install php7-memcached
 </pre>
 Setup your mysql server, nginx and import database scheme <pre>lisk_pool_scheme_db.sql</pre>

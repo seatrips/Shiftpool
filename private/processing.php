@@ -1,15 +1,17 @@
 <?php
 error_reporting(error_reporting() & ~E_NOTICE);
 $config = include('../config.php');
+$delegate = $config['delegate_address'];
+$pool_fee = floatval(str_replace('%', '', $config['pool_fee']));
+$pool_fee_payout_address = $config['pool_fee_payout_address'];
+$protocol = $config['protocol'];
 $df = 0;
 	
 while(1) {
-	$delegate = $config['delegate_address'];
-	$lisk_host = $config['lisk_host'];
-	$lisk_port = $config['lisk_port'];
-	$pool_fee = floatval(str_replace('%', '', $config['pool_fee']));
-	$pool_fee_payout_address = $config['pool_fee_payout_address'];
-	
+	$m = new Memcached();
+	$m->addServer('localhost', 11211);
+	$lisk_host = $m->get('lisk_host');
+	$lisk_port = $m->get('lisk_port');
 	$df++;
 	$forged_block_revenue = 0;
 	$total_voters_power = 0;
@@ -19,14 +21,14 @@ while(1) {
 	$splitted = 0;
 	echo "\n";echo $df.":Getting last 100 blocks forged...\n";
 	//Retrive Public Key
-	$ch1 = curl_init('http://'.$lisk_host.':'.$lisk_port.'/api/accounts?address='.$delegate);                                                                      
+	$ch1 = curl_init($protocol.'://'.$lisk_host.':'.$lisk_port.'/api/accounts?address='.$delegate);                                                                      
 	curl_setopt($ch1, CURLOPT_CUSTOMREQUEST, "GET");                                                                                      
 	curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);     
 	$result1 = curl_exec($ch1);
 	$publicKey_json = json_decode($result1, true); 
 	$publicKey = $publicKey_json['account']['publicKey'];
 	//Retrive last forged block
-	$ch1 = curl_init('http://'.$lisk_host.':'.$lisk_port.'/api/blocks/?generatorPublicKey='.$publicKey.'&limit=100&offset=0&orderBy=height:desc');
+	$ch1 = curl_init($protocol.'://'.$lisk_host.':'.$lisk_port.'/api/blocks/?generatorPublicKey='.$publicKey.'&limit=100&offset=0&orderBy=height:desc');
 	curl_setopt($ch1, CURLOPT_CUSTOMREQUEST, "GET");                                                                                      
 	curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);     
 	$result1 = curl_exec($ch1);
@@ -51,7 +53,7 @@ while(1) {
 			if ($forged_block_revenue != 0) {
 				echo "\nForged block at height:".$forged_block;
 				//Retrive current voters
-				$ch1 = curl_init('http://'.$lisk_host.':'.$lisk_port.'/api/delegates/voters?publicKey='.$publicKey);
+				$ch1 = curl_init($protocol.'://'.$lisk_host.':'.$lisk_port.'/api/delegates/voters?publicKey='.$publicKey);
 				curl_setopt($ch1, CURLOPT_CUSTOMREQUEST, "GET");                                                                                      
 				curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);     
 				$result1 = curl_exec($ch1);
@@ -106,6 +108,4 @@ while(1) {
 	echo "\nTaking a nap for 2s";
 	sleep(2);
 }
-
-
 ?>

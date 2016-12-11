@@ -1,9 +1,9 @@
 <?php
 error_reporting(error_reporting() & ~E_NOTICE);
 $config = include('../config.php');
-
+$df = 0;
+	
 while(1) {
-	$df = 0;
 	$delegate = $config['delegate_address'];
 	$lisk_host = $config['lisk_host'];
 	$lisk_port = $config['lisk_port'];

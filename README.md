@@ -27,8 +27,8 @@ Navigate to config.php
 <b>lisk_nodes & lisk_ports</b>
 You can add here more independent nodes, first one should be localhost, withdraws will be processed only from first node specified here for security reasons as passphrases are being sent out currently to specified node. Other nodes are used to determine node which is currently at latest height to keep pool updated with most recent state of network.
 <pre>
-$lisk_nodes = array(0 => 'localhost',1 => 'login.lisk.io');
-$lisk_ports = array(0 => '8000',1 => '80');
+$lisk_nodes = array(0 => 'localhost',1 => '123.123.123.123');
+$lisk_ports = array(0 => '8000',1 => '8000');
 
 'host' => 'localhost',    <- don't change if mariadb is running on the same machine
 'username' => 'root',     <- Database user

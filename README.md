@@ -3,8 +3,9 @@ This is first LISK delegate forging pool. Written in PHP.
 
 #Requirements
 <a href="https://mariadb.org" target="_blank">MariaDB server</a><br>
-<a href="http://nginx.org" target="_blank">Nginx/Apache (optional)</a><br>
-<a href="https://lisk.io/documentation" target="_blank">LISK Node</a><br>
+<a href="https://memcached.org" target="_blank">Memcached</a><br>
+<a href="http://nginx.org" target="_blank">Nginx</a><br>
+<a href="https://lisk.io/documentation" target="_blank">Lisk Node</a><br>
 <a href="http://www.highcharts.com" target="_blank">Highcharts (included in project)</a><br>
  
 #Setup on Linux

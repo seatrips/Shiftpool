@@ -7,13 +7,13 @@ $fixed_withdraw_fee = $config['fixed_withdraw_fee'];
 $delegate = $config['delegate_address'];
 $secret1 = $config['secret'];
 $secret2 = $config['secondSecret'];
-$lisk_host = $config['lisk_host'];
-$lisk_port = $config['lisk_port'];
-
-$mysqli=mysqli_connect($config['host'], $config['username'], $config['password'], $config['bdd']) or die("Database Error");
+$protocol = $config['protocol'];
+$lisk_host = $config['lisk_host'][0];
+$lisk_port = $config['lisk_port'][0];
 
 while(1){
-	$ch1 = curl_init('http://'.$lisk_host.':'.$lisk_port.'/api/accounts?address='.$delegate);                                                                      
+	$mysqli=mysqli_connect($config['host'], $config['username'], $config['password'], $config['bdd']) or die("Database Error");
+	$ch1 = curl_init($protocol.'://'.$lisk_host.':'.$lisk_port.'/api/accounts?address='.$delegate);                                                                      
   	curl_setopt($ch1, CURLOPT_CUSTOMREQUEST, "GET");                                                                                      
   	curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);     
   	$result1 = curl_exec($ch1);
@@ -27,7 +27,6 @@ while(1){
 		$balanceinlsk = floatval($balance/100000000);
 		echo "\n-------------------------------------------";
 		echo "\n".$payer_adr.' -> '.$balanceinlsk;
-
 		if ($balanceinlsk > $payout_threshold) {
 			$deduced_by_fee = $balanceinlsk - $fixed_withdraw_fee;
 			$deduced_by_fee = $deduced_by_fee * 100000000;
@@ -37,7 +36,7 @@ while(1){
 				$data = array("secret" => $secret1, "amount" => $deduced_by_fee, "recipientId" => $payer_adr, "publicKey" => $publicKey, "secondSecret" => $secret2);
 			}
 			$data_string = json_encode($data);  
-			$ch1 = curl_init('http://'.$lisk_host.':'.$lisk_port.'/api/transactions');                                                                      
+			$ch1 = curl_init($protocol.'://'.$lisk_host.':'.$lisk_port.'/api/transactions');                                                                      
 			curl_setopt($ch1, CURLOPT_CUSTOMREQUEST, "PUT");              
 			curl_setopt($ch1, CURLOPT_POSTFIELDS, $data_string);                                                                        
 			curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);
@@ -71,6 +70,4 @@ while(1){
 	echo "\nSleeping for:".$withdraw_interval_in_sec." sec";
 	sleep($withdraw_interval_in_sec);
 }
-
-
 ?>

@@ -1,5 +1,5 @@
 # Lisk Pool
-This is first and fully opensourced Lisk delegate forging pool (also known as delegate reward sharing). Written in PHP.
+This is first and fully open-sourced Lisk delegate forging pool (also known as delegate reward sharing). Written in PHP.
 
 #Requirements
 <a href="https://mariadb.org" target="_blank">MariaDB server</a><br>

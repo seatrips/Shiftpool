@@ -53,7 +53,7 @@ Start LISK node as usual, and set up it to forging. But please note that you can
 Navigate to <pre>/private/</pre> directory and start background scripts:<br>
 <br>Node height checker, necessary even there is only one defined
 <pre>screen -dmS bestnode php bestnode.php</pre>
-<br>Block Processing - this script check if delegate has forged new block, if yes it will be splited as defined in config
+<br>Block Processing - this script checks if delegate has forged new block, if yes it will be splited as defined in config
 <pre>screen -dmS processing php processing.php</pre>
 <br>Updating charts - this script updates data to keep charts up to date.
 <pre>screen -dmS stats php stats.php</pre>

@@ -1,9 +1,12 @@
 <?php
 error_reporting(error_reporting() & ~E_NOTICE);
 $config = include('../../config.php');
+$m = new Memcached();
+$m->addServer('localhost', 11211);
+$lisk_host = $m->get('lisk_host');
+$lisk_port = $m->get('lisk_port');
 $delegate = $config['delegate_address'];
-$lisk_host = $config['lisk_host'];
-$lisk_port = $config['lisk_port'];
+$protocol = $config['protocol'];
 $pool_fee = floatval(str_replace('%', '', $config['pool_fee']));
 $pool_fee_payout_address = $config['pool_fee_payout_address'];
 $mysqli=mysqli_connect($config['host'], $config['username'], $config['password'], $config['bdd']) or die("Database Error");
@@ -14,7 +17,7 @@ $minedblocks = $row[0];
 
   
 //Retrive Public Key
-$ch1 = curl_init('http://'.$lisk_host.':'.$lisk_port.'/api/accounts?address='.$delegate);                                                                      
+$ch1 = curl_init($protocol.'://'.$lisk_host.':'.$lisk_port.'/api/accounts?address='.$delegate);                                                                      
 curl_setopt($ch1, CURLOPT_CUSTOMREQUEST, "GET");                                                                                      
 curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);     
 $result1 = curl_exec($ch1);
@@ -26,7 +29,7 @@ $balanceinlsk_p = floatval($pool_balance/100000000);
 
 
 //get forging delegate info
-$ch1 = curl_init('http://'.$lisk_host.':'.$lisk_port.'/api/delegates/get/?publicKey='.$publicKey);
+$ch1 = curl_init($protocol.'://'.$lisk_host.':'.$lisk_port.'/api/delegates/get/?publicKey='.$publicKey);
 curl_setopt($ch1, CURLOPT_CUSTOMREQUEST, "GET");                                                                                      
 curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);     
 $result1 = curl_exec($ch1);
@@ -38,7 +41,7 @@ $productivity = $d_data['productivity'];
 $missedblocks = $d_data['missedblocks'];
 
 //Retrive voters
-$ch1 = curl_init('http://'.$lisk_host.':'.$lisk_port.'/api/delegates/voters?publicKey='.$publicKey);
+$ch1 = curl_init($protocol.'://'.$lisk_host.':'.$lisk_port.'/api/delegates/voters?publicKey='.$publicKey);
 curl_setopt($ch1, CURLOPT_CUSTOMREQUEST, "GET");                                                                                      
 curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);     
 $result1 = curl_exec($ch1);
@@ -66,8 +69,10 @@ $existResult = mysqli_query($mysqli,$existQuery)or die("Database Error");
 while ($row=mysqli_fetch_row($existResult)){
     $balance = $row[0];
     $address = $row[1];
-    $balanceinlsk = floatval($balance/100000000);
-    $activeminers = $activeminers.'<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/stats/miner/?address='.$address.'">'.$address.'</a> forged:'.$balanceinlsk.' LISK';
+    if ($address != '982604020548625307L') {
+      $balanceinlsk = floatval($balance/100000000);
+      $activeminers = $activeminers.'<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/stats/miner/?address='.$address.'">'.$address.'</a> forged:'.$balanceinlsk.' LISK';
+    }
 }
 
 echo '<!DOCTYPE html>
@@ -187,7 +192,7 @@ echo '<!DOCTYPE html>
                             <li class="active nav-item"><a href="../stats">Stats</a></li>
                             <li class="nav-item"><a href="../charts">Charts</a></li>
                             <li class="nav-item"><a href="../stats/miner/">Forger Stats</a></li>              
-                            <li class="nav-item last"><a href="mailto:mail@mail.com">Support</a></li>
+                            <li class="nav-item last"><a href="https://liskstats.net" target="_blank">Lisk Network Status</a></li>
                         </ul><!--//nav-->
                     </div><!--//navabr-collapse-->
                 </nav><!--//main-nav-->
@@ -271,7 +276,7 @@ echo '<!DOCTYPE html>
                                 <li><a href="../stats">Pool statistics</a></li>
                                 <li><a href="../charts">Charts</a></li>
                                 <li><a href="../stats/miner/">Forger statistics</a></li>                            
-                                <li><a href="mailto:mail@mail.com">Support</a></li>
+                                <li><a href="https://liskstats.net" target="_blank">Lisk Network Status</a></li>
                             </ul>
                         </div><!--//footer-col-inner-->
                     </div><!--//foooter-col-->

@@ -23,6 +23,7 @@ apt-get install php7-memcached
 Setup your mysql server, nginx and import database scheme <pre>lisk_pool_scheme_db.sql</pre>
 
 Navigate to config.php
+
 <b>lisk_nodes & lisk_ports</b>
 You can add here more independent nodes, first one should be localhost, withdraws will be processed only from first node specified here for security reasons as passphrases are being sent currently. Other nodes may be used to determine node which is currently at latest height to keep pool updated with most recent state of network.
 <pre>

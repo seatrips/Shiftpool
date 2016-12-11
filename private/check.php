@@ -1,26 +1,30 @@
 <?php
-  error_reporting(error_reporting() & ~E_NOTICE & ~E_WARNING);
-  $config = include('../config.php');
+error_reporting(error_reporting() & ~E_NOTICE & ~E_WARNING);
+$config = include('../config.php');
 
-  $mysqli=mysqli_connect($config['host'], $config['username'], $config['password'], $config['bdd']) or die(mysqli_error($mysqli));
-  $df = 0;
-  $delegate = $config['delegate_address'];
-  $lisk_host = $config['lisk_host'];
-  $lisk_port = $config['lisk_port'];
-  $pool_fee = floatval(str_replace('%', '', $config['pool_fee']));
-  $pool_fee_payout_address = $config['pool_fee_payout_address'];
+$m = new Memcached();
+$m->addServer('localhost', 11211);
+$lisk_host = $m->get('lisk_host');
+$lisk_port = $m->get('lisk_port');
+
+$mysqli=mysqli_connect($config['host'], $config['username'], $config['password'], $config['bdd']) or die(mysqli_error($mysqli));
+$df = 0;
+$delegate = $config['delegate_address'];
+$pool_fee = floatval(str_replace('%', '', $config['pool_fee']));
+$pool_fee_payout_address = $config['pool_fee_payout_address'];
+$protocol = $config['protocol'];
 
 
-  echo "\nFetching data...\n";
-  //Retrive Public Key
-  $ch1 = curl_init('http://'.$lisk_host.':'.$lisk_port.'/api/accounts?address='.$delegate);                                                                      
-  curl_setopt($ch1, CURLOPT_CUSTOMREQUEST, "GET");                                                                                      
-  curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);     
-  $result1 = curl_exec($ch1);
-  $publicKey_json = json_decode($result1, true); 
-  $publicKey = $publicKey_json['account']['publicKey'];
-  $pool_balance = $publicKey_json['account']['balance'];
-  $balanceinlsk_p = floatval($pool_balance/100000000);
+echo "\nFetching data...\n";
+//Retrive Public Key
+$ch1 = curl_init($protocol.'://'.$lisk_host.':'.$lisk_port.'/api/accounts?address='.$delegate);                                                                      
+curl_setopt($ch1, CURLOPT_CUSTOMREQUEST, "GET");                                                                                      
+curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);     
+$result1 = curl_exec($ch1);
+$publicKey_json = json_decode($result1, true); 
+$publicKey = $publicKey_json['account']['publicKey'];
+$pool_balance = $publicKey_json['account']['balance'];
+$balanceinlsk_p = floatval($pool_balance/100000000);
 
 $existQuery = "SELECT address,balance FROM miners WHERE balance!='0'";
 $existResult = mysqli_query($mysqli,$existQuery)or die("Database Error");
@@ -41,6 +45,4 @@ if ($balanceinlsk_p > $total) {
 } else {
 	echo "\n!!! Incorrect - balance invalid !!!\n\n";
 }
-
-
 ?>

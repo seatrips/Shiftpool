@@ -57,7 +57,7 @@ Navigate to <pre>/private/</pre> directory and start background scripts:<br>
 <pre>screen -dmS processing php processing.php</pre>
 <br>Updating charts - this script updates data to keep charts up to date.
 <pre>screen -dmS stats php stats.php</pre>
-<br>Withdraw script - this script withdraw revenue as defined in config.
+<br>Withdraw script - this script withdraws revenue as defined in config.
 <pre>screen -dmS withdraw php withdraw.php</pre>
 <br><br>
 Optional

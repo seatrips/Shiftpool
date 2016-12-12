@@ -63,8 +63,8 @@ function checkLatestBlock($url){
   $ch1 = curl_init($url);                                                                      
   curl_setopt($ch1, CURLOPT_CUSTOMREQUEST, "GET");                                                                                      
   curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);
-  curl_setopt($ch, CURLOPT_CONNECTTIMEOUT ,2); 
-  curl_setopt($ch, CURLOPT_TIMEOUT, 2);    
+  curl_setopt($ch1, CURLOPT_CONNECTTIMEOUT ,2); 
+  curl_setopt($ch1, CURLOPT_TIMEOUT, 2);    
   $result1 = curl_exec($ch1);
   $jsondict = json_decode($result1, true); 
   $block = $jsondict['blocks'][0];

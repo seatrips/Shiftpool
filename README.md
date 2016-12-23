@@ -44,7 +44,7 @@ $lisk_ports = array(0 => '8000',1 => '8000');
 'fixed_withdraw_fee' => '0.1',    <- Fixed Wihtdraw fee in LISK
 'withdraw_interval_in_sec' => '43200',   <- Wihtdraw script interval represented in seconds
 'secret' => 'passphrase1',    <- Main passphrase the same your as in your forging delegete
-'secondSecret' => 'passphrase2' <- Second passphrase, if you dont have one leave it empty ex. ""
+'secondSecret' => 'passphrase2' <- Second passphrase, if you dont have one leave it empty ex. ""'
 </pre>
 
 #Usage
@@ -77,7 +77,9 @@ git submodule update --init --recursive
 cd private/forging
 nano config.php
 </pre>
-In private/config.php you need to add trusted nodes and it's ports. Each specified server needs to have whitelisted IP address of server which will be used to run this script. As described [here](https://lisk.io/documentation?i=lisk-docs/BinaryInstall).
+In private/config.php you need to add trusted nodes and it
+
+s ports. Each specified server needs to have whitelisted IP address of server which will be used to run this script. As described [here](https://lisk.io/documentation?i=lisk-docs/BinaryInstall).
 Passphrase will be taken from main configuration file. For more details visit main [lisk-best-forger](https://github.com/karek314/lisk-best-forger/edit/master/README.md) repository.
 
 ####Lisk-best-forger Usage

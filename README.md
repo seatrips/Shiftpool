@@ -31,21 +31,21 @@ You can add here more independent nodes, first one should be localhost, withdraw
 $lisk_nodes = array(0 => 'localhost',1 => '123.123.123.123');
 $lisk_ports = array(0 => '8000',1 => '8000');
 
-'host' => 'localhost',    <- dont change if mariadb is running on the same machine
-'username' => 'root',     <- Database user
-'password' => 'SQL_PASSWORD',  <- Database Password
-'bdd' => 'lisk',    <- Database Name
+'host' => 'localhost',    //<- dont change if mariadb is running on the same machine
+'username' => 'root',     //<- Database user
+'password' => 'SQL_PASSWORD',  //<- Database Password
+'bdd' => 'lisk',    //<- Database Name
 'lisk_host' => $lisk_nodes,
 'lisk_port' => $lisk_ports,
-'protocol' => 'http', <-pick http or https
-'pool_fee' => '25.0%',     <- adjustable pool fee as float for ex. "25.0%"
-'pool_fee_payout_address' => '17957303129556813956L',   <- Payout address if fee > 0.0
-'delegate_address' => '17957303129556813956L',    <- Delegate address - must be valid forging delegate address
-'payout_threshold' => '1',    <- Payout threshold in LISK
-'fixed_withdraw_fee' => '0.1',    <- Fixed Withdraw fee in LISK
-'withdraw_interval_in_sec' => '43200',   <- Withdraw script interval represented in seconds
-'secret' => 'passphrase1',    <- Main passphrase the same your as in your forging delegate
-'secondSecret' => 'passphrase2' <- Second passphrase, if you dont have one leave it empty ex. ""
+'protocol' => 'http', //<-pick http or https
+'pool_fee' => '25.0%',     //<- adjustable pool fee as float for ex. "25.0%"
+'pool_fee_payout_address' => '17957303129556813956L',   //<- Payout address if fee > 0.0
+'delegate_address' => '17957303129556813956L',    //<- Delegate address - must be valid forging delegate address
+'payout_threshold' => '1',    //<- Payout threshold in LISK
+'fixed_withdraw_fee' => '0.1',    //<- Fixed Withdraw fee in LISK
+'withdraw_interval_in_sec' => '43200',   //<- Withdraw script interval represented in seconds
+'secret' => 'passphrase1',    //<- Main passphrase the same your as in your forging delegate
+'secondSecret' => 'passphrase2' //<- Second passphrase, if you dont have one leave it empty ex. ""
 ```
 
 #Usage

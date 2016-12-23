@@ -25,7 +25,7 @@ Setup your mysql server, nginx and import database scheme <pre>lisk_pool_scheme_
 Navigate to config.php
 
 <b>lisk_nodes & lisk_ports</b>
-You can add here more independent nodes, first one should be localhost, withdraws will be processed only from first node specified here for security reasons as passphrases are being sent out currently to specified node. Other nodes are used to determine node which is currently at latest height to keep pool updated with most recent state of network.
+You can add here more independent nodes, first one should be localhost, withdraws will be processed only from first node specified here for security reasons as passphrase are being sent out currently to specified node. Other nodes are used to determine node which is currently at latest height to keep pool updated with most recent state of network.
 <pre>
 $lisk_nodes = array(0 => 'localhost',1 => '123.123.123.123');
 $lisk_ports = array(0 => '8000',1 => '8000');
@@ -41,10 +41,10 @@ $lisk_ports = array(0 => '8000',1 => '8000');
 'pool_fee_payout_address' => '17957303129556813956L',   <- Payout address if fee > 0.0
 'delegate_address' => '17957303129556813956L',    <- Delegate address - must be valid forging delegate address
 'payout_threshold' => '1',    <- Payout threshold in LISK
-'fixed_withdraw_fee' => '0.1',    <- Fixed Wihtdraw fee in LISK
-'withdraw_interval_in_sec' => '43200',   <- Wihtdraw script interval represented in seconds
-'secret' => 'passphrase1',    <- Main passphrase the same your as in your forging delegete
-'secondSecret' => 'passphrase2' <- Second passphrase, if you dont have one leave it empty ex. ""'
+'fixed_withdraw_fee' => '0.1',    <- Fixed Withdraw fee in LISK
+'withdraw_interval_in_sec' => '43200',   <- Withdraw script interval represented in seconds
+'secret' => 'passphrase1',    <- Main passphrase the same your as in your forging delegate
+'secondSecret' => 'passphrase2' <- Second passphrase, if you don't have one leave it empty ex. ""
 </pre>
 
 #Usage
@@ -53,7 +53,7 @@ Start LISK node as usual, and set up it to forging. But please note that you can
 Navigate to <pre>/private/</pre> directory and start background scripts:<br>
 <br>Node height checker, necessary even there is only one defined
 <pre>screen -dmS bestnode php bestnode.php</pre>
-<br>Block Processing - this script checks if delegate has forged new block, if yes it will be splited as defined in config
+<br>Block Processing - this script checks if delegate has forged new block, if yes it will be split as defined in config
 <pre>screen -dmS processing php processing.php</pre>
 <br>Updating charts - this script updates data to keep charts up to date.
 <pre>screen -dmS stats php stats.php</pre>
@@ -61,7 +61,7 @@ Navigate to <pre>/private/</pre> directory and start background scripts:<br>
 <pre>screen -dmS withdraw php withdraw.php</pre>
 <br>
 Optional
-Balance checker - Simple script to compare total LISK value stored in database in refernce to actual LISK stored on delegate account.
+Balance checker - Simple script to compare total LISK value stored in database in reference to actual LISK stored on delegate account.
 <pre>php check.php</pre>
 
 <br>

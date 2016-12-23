@@ -31,7 +31,7 @@ You can add here more independent nodes, first one should be localhost, withdraw
 $lisk_nodes = array(0 => 'localhost',1 => '123.123.123.123');
 $lisk_ports = array(0 => '8000',1 => '8000');
 
-'host' => 'localhost',    <- don't change if mariadb is running on the same machine
+'host' => 'localhost',    <- dont change if mariadb is running on the same machine
 'username' => 'root',     <- Database user
 'password' => 'SQL_PASSWORD',  <- Database Password
 'bdd' => 'lisk',    <- Database Name
@@ -45,7 +45,7 @@ $lisk_ports = array(0 => '8000',1 => '8000');
 'fixed_withdraw_fee' => '0.1',    <- Fixed Withdraw fee in LISK
 'withdraw_interval_in_sec' => '43200',   <- Withdraw script interval represented in seconds
 'secret' => 'passphrase1',    <- Main passphrase the same your as in your forging delegate
-'secondSecret' => 'passphrase2' <- Second passphrase, if you don't have one leave it empty ex. ""
+'secondSecret' => 'passphrase2' <- Second passphrase, if you dont have one leave it empty ex. ""
 ```
 
 #Usage

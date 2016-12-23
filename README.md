@@ -70,7 +70,7 @@ All background scripts can be easily accessed with
 screen -x processing/stats/withdraw/bestnode
 </pre>
 
-##Forging producitivity
+##Forging productivity
 Optionally you can use [lisk-best-forger](https://github.com/karek314/lisk-best-forger) background script to improve forging productivity.
 <pre>
 git submodule update --init --recursive

@@ -8,7 +8,7 @@ This is first and fully open-sourced Lisk delegate forging pool (also known as d
 <a href="https://lisk.io/documentation" target="_blank">Lisk Node</a><br>
 <a href="http://www.highcharts.com" target="_blank">Highcharts (included in project)</a><br>
  
-#Setup on Linux
+#Installation
 <pre>
 apt-get install nginx mariadb-server memcached
 </pre>
@@ -47,7 +47,7 @@ $lisk_ports = array(0 => '8000',1 => '8000');
 'secondSecret' => 'passphrase2' <- Second passphrase, if you dont have one leave it empty ex. ""
 </pre>
 
-#Start Pool
+#Usage
 Start LISK node as usual, and set up it to forging. But please note that you can forge with different node that one used for hosting pool.
 
 Navigate to <pre>/private/</pre> directory and start background scripts:<br>
@@ -69,9 +69,23 @@ You can easily access all background scripts by
 <pre>
 screen -x processing/stats/withdraw/bestnode</pre>
 
+Optionally you can use [lisk-best-forger](https://github.com/karek314/lisk-best-forger) background script to improve forging productivity.
+<pre>
+git submodule update --init --recursive
+cd private/forging
+nano config.php
+</pre>
+In private/config.php you need to add trusted nodes and it's ports. Each specified server needs to have whitelisted IP address of server which will be used to run this script. As described [here](https://lisk.io/documentation?i=lisk-docs/BinaryInstall).
+Passphrase will be taken from main configuration file. For more details visit main [lisk-best-forger](https://github.com/karek314/lisk-best-forger/edit/master/README.md) repository.
+
+###Lisk-best-forger Usage
+<pre>
+screen -dmS bestforger php daemon.php
+</pre>
+This script should be used along with trusted servers only via SSL.
+
 #Contributing
 If you want to contribute, fork and pull request or open issue.
-
 
 #License
 Entire PHP is under The MIT License (MIT)<br>

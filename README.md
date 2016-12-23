@@ -70,16 +70,14 @@ You can easily access all background scripts by
 screen -x processing/stats/withdraw/bestnode</pre>
 
 
-#Forging productivity
+##Forging productivity
 Optionally you can use [lisk-best-forger](https://github.com/karek314/lisk-best-forger) background script to improve forging productivity.
 <pre>
 git submodule update --init --recursive
 cd private/forging
 nano config.php
 </pre>
-In private/config.php you need to add trusted nodes and it
-
-s ports. Each specified server needs to have whitelisted IP address of server which will be used to run this script. As described [here](https://lisk.io/documentation?i=lisk-docs/BinaryInstall).
+In private/config.php you need to add trusted nodes and it's ports. Each specified server needs to have whitelisted IP address of server which will be used to run this script. As described [here](https://lisk.io/documentation?i=lisk-docs/BinaryInstall).
 Passphrase will be taken from main configuration file. For more details visit main [lisk-best-forger](https://github.com/karek314/lisk-best-forger/edit/master/README.md) repository.
 
 ####Lisk-best-forger Usage

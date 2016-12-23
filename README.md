@@ -65,7 +65,7 @@ Balance checker - Simple script to compare total LISK value stored in database i
 <pre>php check.php</pre>
 
 <br>
-Aall background scripts can be easily accessed with
+All background scripts can be easily accessed with
 <pre>
 screen -x processing/stats/withdraw/bestnode</pre>
 

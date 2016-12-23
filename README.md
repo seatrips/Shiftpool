@@ -80,7 +80,7 @@ nano config.php
 In private/config.php you need to add trusted nodes and it's ports. Each specified server needs to have whitelisted IP address of server which will be used to run this script. As described [here](https://lisk.io/documentation?i=lisk-docs/BinaryInstall).
 Passphrase will be taken from main configuration file. For more details visit main [lisk-best-forger](https://github.com/karek314/lisk-best-forger/edit/master/README.md) repository.
 
-####Lisk Best Forger Usage
+####Usage
 <pre>
 screen -dmS bestforger php daemon.php
 </pre>

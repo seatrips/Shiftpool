@@ -65,12 +65,11 @@ Balance checker - Simple script to compare total LISK value stored in database i
 <pre>php check.php</pre>
 
 <br>
-You can easily access all background scripts by
+Aall background scripts can be easily accessed with
 <pre>
 screen -x processing/stats/withdraw/bestnode</pre>
 
-
-##Forging productivity
+#Forging producitivity
 Optionally you can use [lisk-best-forger](https://github.com/karek314/lisk-best-forger) background script to improve forging productivity.
 <pre>
 git submodule update --init --recursive

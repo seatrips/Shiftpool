@@ -25,7 +25,7 @@ while(1) {
       $curr_host = $config_lisk_host[$i];
       $curr_port = $config_lisk_port[$i];
       echo "\n[".$i."]Checking node: ".$curr_host.':'.$curr_port;
-      $block = checkLatestBlock($protocol.'://'.$curr_host.':'.$curr_port.'/api/blocks?limit=1');
+      $block = checkLatestBlock($protocol.'://'.$curr_host.':'.$curr_port.'/api/loader/status/sync');
       array_push($heights, $block["height"]);
       echo "\nHeight: ".$block["height"];
     }
@@ -67,8 +67,7 @@ function checkLatestBlock($url){
   curl_setopt($ch1, CURLOPT_TIMEOUT, 3);    
   $result1 = curl_exec($ch1);
   $jsondict = json_decode($result1, true); 
-  $block = $jsondict['blocks'][0];
-  return $block;
+  return $jsondict;
 }
 
 ?>

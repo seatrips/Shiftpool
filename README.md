@@ -59,7 +59,7 @@ Navigate to <pre>/private/</pre> directory and start background scripts:<br>
 <pre>screen -dmS stats php stats.php</pre>
 <br>Withdraw script - this script withdraws revenue as defined in config.
 <pre>screen -dmS withdraw php withdraw.php</pre>
-<br><br>
+<br>
 Optional
 Balance checker - Simple script to compare total LISK value stored in database in refernce to actual LISK stored on delegate account.
 <pre>php check.php</pre>
@@ -67,9 +67,10 @@ Balance checker - Simple script to compare total LISK value stored in database i
 <br>
 All background scripts can be easily accessed with
 <pre>
-screen -x processing/stats/withdraw/bestnode</pre>
+screen -x processing/stats/withdraw/bestnode
+</pre>
 
-#Forging producitivity
+##Forging producitivity
 Optionally you can use [lisk-best-forger](https://github.com/karek314/lisk-best-forger) background script to improve forging productivity.
 <pre>
 git submodule update --init --recursive
@@ -79,7 +80,7 @@ nano config.php
 In private/config.php you need to add trusted nodes and it's ports. Each specified server needs to have whitelisted IP address of server which will be used to run this script. As described [here](https://lisk.io/documentation?i=lisk-docs/BinaryInstall).
 Passphrase will be taken from main configuration file. For more details visit main [lisk-best-forger](https://github.com/karek314/lisk-best-forger/edit/master/README.md) repository.
 
-####Lisk-best-forger Usage
+####Lisk Best Forger Usage
 <pre>
 screen -dmS bestforger php daemon.php
 </pre>

@@ -48,15 +48,23 @@ while(1) {
     $cur_time = time();
     $mysqli=mysqli_connect($config['host'], $config['username'], $config['password'], $config['bdd']) or die(mysqli_error($mysqli));
     $total_voters_power_d = $total_voters_power/100000000000000;
-    $add2Stats = "INSERT INTO pool_votepower (votepower, val_timestamp) VALUES ('$total_voters_power_d', '$cur_time')";
-    $querydone = mysqli_query($mysqli,$add2Stats) or die("Database Error 0");
+    if ($total_voters_power_d != '' && $total_voters_power_d != ' ') {
+      $add2Stats = "INSERT INTO pool_votepower (votepower, val_timestamp) VALUES ('$total_voters_power_d', '$cur_time')";
+      $querydone = mysqli_query($mysqli,$add2Stats) or die("Database Error 0");
+    }
     $balanceinlsk_p = floatval($pool_balance/100000000);
-    $add2Stats = "INSERT INTO pool_balance (value, var_timestamp) VALUES ('$balanceinlsk_p', '$cur_time')";
-    $querydone = mysqli_query($mysqli,$add2Stats) or die("Database Error 0");
-    $add2Stats = "INSERT INTO pool_voters (value, var_timestamp) VALUES ('$voters_count', '$cur_time')";
-    $querydone = mysqli_query($mysqli,$add2Stats) or die("Database Error 0");
-    $add2Stats = "INSERT INTO pool_rank (value, var_timestamp) VALUES ('$rank', '$cur_time')";
-    $querydone = mysqli_query($mysqli,$add2Stats) or die("Database Error 0");
+    if ($balanceinlsk_p != '' && $balanceinlsk_p != ' ') {
+      $add2Stats = "INSERT INTO pool_balance (value, var_timestamp) VALUES ('$balanceinlsk_p', '$cur_time')";
+      $querydone = mysqli_query($mysqli,$add2Stats) or die("Database Error 0");
+    }
+    if ($voters_count != '' && $voters_count != ' ') {
+      $add2Stats = "INSERT INTO pool_voters (value, var_timestamp) VALUES ('$voters_count', '$cur_time')";
+      $querydone = mysqli_query($mysqli,$add2Stats) or die("Database Error 0");
+    }
+    if ($rank != '' && $rank != ' ') {
+      $add2Stats = "INSERT INTO pool_rank (value, var_timestamp) VALUES ('$rank', '$cur_time')";
+      $querydone = mysqli_query($mysqli,$add2Stats) or die("Database Error 0");
+    }
     $db_users_count = 0;
     $users_data = '';
     $existQuery = "SELECT address,balance FROM miners";

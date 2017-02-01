@@ -69,10 +69,8 @@ $existResult = mysqli_query($mysqli,$existQuery)or die("Database Error");
 while ($row=mysqli_fetch_row($existResult)){
     $balance = $row[0];
     $address = $row[1];
-    if ($address != '982604020548625307L') {
-      $balanceinlsk = floatval($balance/100000000);
-      $activeminers = $activeminers.'<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/stats/miner/?address='.$address.'">'.$address.'</a> forged:'.$balanceinlsk.' LISK';
-    }
+    $balanceinlsk = floatval($balance/100000000);
+    $activeminers = $activeminers.'<br>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/stats/miner/?address='.$address.'">'.$address.'</a> forged:'.$balanceinlsk.' LISK';
 }
 
 echo '<!DOCTYPE html>
